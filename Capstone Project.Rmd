@@ -8,9 +8,9 @@ output:
 
 
 ## Problem - Predicting the Accuracy of Credit Card Default
-At the end of March 2016 outstanding credit card debt totaled just over \$750 billion in the US alone. For households that carry an unpaid balance each month, the average debt was just over \$16,000 at the end of the same period. [Credit Card Data](https://www.valuepenguin.com/average-credit-card-debt) 
+At the end of March 2016, outstanding credit card debt totaled just over \$750 billion in the US alone. For households that carry an unpaid balance each month, the average debt was just over \$16,000 at the end of the same period. [Credit Card Data](https://www.valuepenguin.com/average-credit-card-debt) 
 
-While outstanding credit card debt presents a risk to the consumer in the form of higher interest payments, it also presents a risk to the lender in the form of a potential default. Is it possible to identify characteristics of borrowers who are either more or less likely to default on their credit card debt? 
+While outstanding credit card debt presents a risk to the consumer in the form of higher interest payments, it also presents a risk to the lender in the form of a potential default. Is it possible to identify characteristics of borrowers who are either more or less likely to default on their credit card debt?
 
   
 ## Client
@@ -18,13 +18,14 @@ While outstanding credit card debt presents a risk to the consumer in the form o
 
 Credit cards are usually issued by a bank or credit card company.  When the issuer is unlikely to collect credit card debt, they will write it off as a loss or charge-off.  At the end of 2016, credit card charge-offs were 3.37% for the top 100 US banks ranked by assets. [Write off Data](https://fred.stlouisfed.org/series/CORCCT100S) 
 
-Assessing who is more likely to repay is at the heart of the lending industry. A predictive model that can more accurately profile of a reliable borrower is very valuable information to financial institutions and can ultimatley help them reduce their write-off rates. 
+Assessing who is more likely to repay is at the heart of the lending industry. A predictive model that can more accurately profile a reliable borrower is very valuable information to financial institutions and can ultimatley help them reduce their write-off rates. Can we provide a predictive model 
+of borrowers that might help credit card issuers reduce their charge-off rate?
 
 
 ## Data
 
 
-While not focused on the US market, the data set for this project looked at one response variable (default or payment of credit card debt in October 2005). 
+While not focused on the US market, the data set for this project looked at one response variable (default or payment of credit card debt) for 30,000 Taiwanese credit card holders in October 2005. 
 
 Y: Client action; 0 = no default; 1 = default
 
@@ -43,17 +44,18 @@ X18-X23: Amount of previous payments, X18 = amount paid in September of 2005;...
 
 Data is available at the following link: [Data set](http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients)
 
-The data are provided in a CSV file.  The data will require very little manipulation as every categorical field has a binary value (0, 1, etc). Some column names may need to be changed (for example BILL_AMT6 to BILL_April).
+The data are provided in a CSV file.  The data will require some basic clean up.  Column names will need to be changed from X1, X2 etc. to more meaningful titles such as Gender, Education etc.  Columns X2-X4, X6-X11, and Y currently use integers to represent categorical data.  These values will need to be converted to names (male, female, bachelors degree, 2 month payment delay etc).
 
 
 ## Approach
 
+With the dependent variable being default of payment, the question to answer is what independent variables are accurate predictors of a default? An important point to note is that a number of the independent variables are qualitative (marriage status, education level etc), while others are numerical values (monthly balances, loan amount etc).  
 
-Let's discuss on our call.  Some ideas I had include:<br/>
-* First looking at relationahips between 1 independent variable and default (for example, education level and default, or marital status and default etc.)<br/>
-* Then maybe combining some variables.  For example, if we look at education level and loans above a certain amount.<br/> 
-* Try to draw some conclusions about the rate of payment for past monthly balances and payment schedule.<br/>
-* Problems might be the large number of independent variables.  How do we isolate and analyse what's important?
+The first step will be to perform exploratory data analysis (EDA) and examine relationships between any of the independent variables and default.  For example, education level and default, or balance from month to month and default. 
+
+In step two, independent variables that appear more frequently for default will require further exploration and more targeted questions. For example, is a combination of education level and a growing balance for 3 months significant? 
+
+Finally, the results of the data analysis will need to be put into context. Does it make sense from an industry perspective that certain variables appear to have some predictive power?  What can we conclude about different profiles of borrowers?
 
 
 ## Deliverables
