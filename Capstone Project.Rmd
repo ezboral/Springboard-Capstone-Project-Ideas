@@ -18,8 +18,7 @@ While outstanding credit card debt presents a risk to the consumer in the form o
 
 Credit cards are usually issued by a bank or credit card company.  When the issuer is unlikely to collect credit card debt, the issuer will write it off as a loss or charge-off.  At the end of 2016, credit card charge-offs were 3.37% for the top 100 US banks ranked by assets. [Write off Data](https://fred.stlouisfed.org/series/CORCCT100S) 
 
-Assessing who is more likely to repay is at the heart of the lending industry. A predictive model that can more accurately profile a reliable borrower is very valuable information to financial institutions and can ultimatley help them reduce their write-off rates. Can we provide a predictive model 
-of borrowers that might help credit card issuers reduce their charge-off rate?
+Assessing who is more likely to repay is at the heart of the lending industry. A predictive model that can more accurately profile a reliable borrower is very valuable information to financial institutions and can ultimatley help them reduce their write-off rates. Can we identify characteristics of borrowers that have a higher likelihood of leading to default?
 
 
 ## Data
