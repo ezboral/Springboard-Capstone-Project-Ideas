@@ -1,0 +1,61 @@
+---
+title: "Credit Card Default Statistical Analysis"
+output: html_document
+---
+
+```
+knitr::opts_chunk$set(echo = TRUE)
+```
+This document provides an exploratory data analysis (EDA) of credit card default data among Taiwanese credit card holders of an unspecified Taiwanese bank in 2005. The dependent variable in the data set is whether credit card holders defaulted on their debt in October of 2005.  In addition, there are 23 explanatory variables which can be referenced [here](http://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients).
+
+A summary of the data is below.
+
+``` 
+summary(cleancc)
+```
+Some noteworthy observations from the data summary include the following:
+
+* The average loan is nearly \$167,500, with a range of loans from \$10,000 to \$1 million. 
+* The average age of credit card holders is just over 35 years old, and ranges from 21 to 79.  
+* The monthly Balance variables (BalApr05, BalMay05, etc) average in the neighborhood of \$40,000 to \$50,000, but the median is closer to \$20,000 for each month.  We see both the mean and median grow each successive month.
+* The amount payed each month (PayAmtApr05, PayAmtMay05, etc) averages around \$5000, while the median is around \$1500-\$2000.  We generally see a higher trend from April to September for the monthly payment.
+
+Without additional context, the summary data for the other explanatory variables will mean very little. This requires a deeper dive, which is included below.
+
+In order to gain further insight, the following charts tell us more about the profile of credit card holders.
+
+```
+summary = cleancc %>% group_by(Education, DefaultOct05) %>% tally %>% group_by(Education) %>% mutate(pct = n/sum(n), n.pos = cumsum(n) - 0.5*n)
+
+ggplot(summary, aes(x=Education, y=n, fill=DefaultOct05)) + geom_bar(stat="identity") + geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=n.pos), colour="white")
+```
+```
+summary = cleancc %>% group_by(Gender, DefaultOct05) %>% tally %>% group_by(Gender) %>% mutate(pct = n/sum(n), n.pos = cumsum(n) - 0.5*n)
+
+ggplot(summary, aes(x=factor(Gender), y=n, fill=DefaultOct05)) + geom_bar(stat="identity") + geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=n.pos), colour="white")
+```
+
+```
+summary = cleancc %>% group_by(Marriage, DefaultOct05) %>% tally %>% group_by(Marriage) %>% mutate(pct = n/sum(n), n.pos = cumsum(n) - 0.5*n)
+
+ggplot(summary, aes(x=Marriage, y=n, fill=DefaultOct05)) + geom_bar(stat="identity") + geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=n.pos), colour="white")
+```
+
+The first chart plots Education level on the x axis and default on the y axis. We see a default rate of 19.2% for people with graduate degrees, 23.7% for those with bachelors degrees, and 25.2% for those with HS as their highest level of education.  As the level of education increases, the default rate decreases. This merits further exploration.
+
+The second chart looks at gender and default.  The number of women in with credit cards is significantly higher than the number of men (over 18k vs over 11k).  However, men have a higher default rate of 24.2% vs 20.8% for women. This alone doesn't necessarily tell us much.  Perhaps gender combined with education level, marriage status, loan amount or other variables may reveal something useful. 
+
+The third chart looks at marriage status versus default. Married borrowers have a 23.5% defualt rate, while those that are single default 20.9% of the time.  Divorced borrowers have a 26.0% default rate. 
+
+It's also worth looking at the distribution of ages of borrowers and the distribution of Loan amounts.
+
+``` 
+hist(cleancc$LoanAmt, breaks = 10)
+```
+
+``` 
+hist(cleancc$Age, breaks = 20)
+```
+
+The majority of loans are smaller.  As the size of the loan gets larger, there is a lower frequency of borrowers.  Similarly, as age increases we see fewer borrowers.  The exception is a jump from the 20-25 year old range to 25-30 year old range.  
+
